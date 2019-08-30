@@ -69,10 +69,6 @@
 
 (def ^:dynamic *use-ansi* "Rebind this to false if you don't want to see ANSI codes in some part of your code." true)
 
-(defn- lpg [& codes]
-  (let [numeric-codes (map @ATTRIBUTES (flatten codes))]
-    (str (str/join ";" numeric-codes) "m")))
-
 (defn- sgr [& codes]
   (str "\u001b[" (str/join ";" (flatten codes)) "m"))
 
