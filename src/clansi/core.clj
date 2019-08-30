@@ -1,5 +1,7 @@
 (ns clansi.core
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.pprint :as pp])
+  (:gen-class))
 
 
 (def ATTRIBUTES (atom {:error [4 91 40]
@@ -67,6 +69,10 @@
 
 (def ^:dynamic *use-ansi* "Rebind this to false if you don't want to see ANSI codes in some part of your code." true)
 
+(defn- lpg [& codes]
+  (let [numeric-codes (map @ATTRIBUTES (flatten codes))]
+    (str (str/join ";" numeric-codes) "m")))
+
 (defn- sgr [& codes]
   (str "\u001b[" (str/join ";" (flatten codes)) "m"))
 
@@ -128,7 +134,7 @@
 
    (style \"foo\" :red)
    (style \"foo\" :red :underline)
-   (style \"foo\" :red :bg-blue :underline)"
+   (style \"foo\" :red :on-blue :underline)"
   [s & styles]
   (str (ansi styles) s (ansi :reset)))
 
@@ -236,6 +242,7 @@
   (println (str "blink:   " (style ":blink" :blink)))
   (println (str "reverse: " (style ":reverse" :reverse)))
   (println (str "conceal: " (style ":concealed" :concealed)))
+  (println (str "error    " (style ":trigger-an-error" :trigger-an-error)))
   (println)
 
   (let [base-colors ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"]]
@@ -307,17 +314,24 @@
     (doseq [n (range 0 16)]
       (let [tag (format "ansi-%d" n)]
         (println (style (str "** " tag " **") (keyword (format "ansi%d" n))))))
-    (println)
-    (println (style "RGB:" :underline))
-    (doseq [r (range 0 6)]
-      (doseq [g (range 0 6)
-              b (range 0 6)]
-        (let [color (format "rgb%d%d%d" r g b)
-              tag (format "#%d%d%d." r g b)]
-          (print (style tag (keyword color)))))
-      (println))
-    (println)
-    (println (style "rainbow:" :underline))
-    (print-rainbow)
-    (println)
-    ))
+    (println))
+
+    ;; standard color view
+
+  (println (style "                 40m     41m     42m     43m     44m     45m     46m     47m   " :reset))
+  (let [fg [:normal :bold :black [:bold :black] :red [:bold :red] :green [:bold :green] :yellow [:bold :yellow]
+                :blue [:bold :blue] :magenta [:bold :magenta] :cyan [:bold :cyan] :white [:bold :white]]
+        row-label ["     m ", "    1m ", "   30m ", " 1;30m ", "   31m ", " 1;31m ", "   32m ", " 1;32m ", "   33m ", " 1;33m ",
+                   "   34m ", " 1;34m ", "   35m ", " 1;35m ", "   36m ", " 1;36m ", "   37m ", " 1;37m "]]
+    (doseq [row (map (fn [color label] {:fg color :label label}) fg row-label)]
+      (print (style (row :label) :normal))
+      (doseq [bg [[] :bg-black :bg-red :bg-green :bg-yellow :bg-blue :bg-magenta :bg-cyan :bg-white]]
+        (let [tag "  gYw  "]
+          (print (style tag (row :fg) bg))
+          (print (style " " :normal))))
+      (println)))
+
+  (println)
+  (println (style "rainbow:" :underline))
+  (print-rainbow)
+  (println))
