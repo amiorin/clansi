@@ -68,7 +68,7 @@ clojure -Spom
     Once a =pom.xml= does exist, update the version in the file
 
 *** Install the pack alias
-    https://juxt.pro/blog/pack-maven#_install_the_pack_alias
+    [[https://juxt.pro/blog/pack-maven#_install_the_pack_alias][Link to original blog post]]
 
     Run the following command to add the =:pack= alias to you =deps.edn= file.
     #+begin_src sh
@@ -76,7 +76,7 @@ $ clojure -Sdeps '{:deps {pack/pack.alpha {:git/url "https://github.com/juxt/pac
     #+end_src
     
 *** Build your JAR
-    https://juxt.pro/blog/pack-maven#_build_your_jar
+    [[https://juxt.pro/blog/pack-maven#_build_your_jar][Link to original blog post]]
 
     Use =pack='s skinny jar mode to create a jar that's suitable for upload to clojars.
     #+begin_src 
@@ -84,7 +84,7 @@ clojure -A:pack mach.pack.alpha.skinny --no-libs --project-path clansi-1.3.1.jar
     #+end_src
 
 *** Release the JAR using Deps Deploy
-    https://juxt.pro/blog/pack-maven#deps_deploy
+    [[https://juxt.pro/blog/pack-maven#deps_deploy][Link to original blog post]]
 
 **** Add a =:deploy= alias that uses the =deps-deploy= library
      #+begin_src clojure
