@@ -58,7 +58,7 @@ this purpose:
 ** Deployment to Clojars
 
 *** Update pom.xml
-    https://juxt.pro/blog/pack-maven#_generate_a_pom_xml
+    [[https://juxt.pro/blog/pack-maven#_generate_a_pom_xml][Link to original blog post]]
 
     If no =pom.xml= exists use the following command to create it.
     #+begin_src sh
