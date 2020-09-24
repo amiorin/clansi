@@ -72,14 +72,14 @@ clojure -Spom
 
     Run the following command to add the =:pack= alias to you =deps.edn= file.
     #+begin_src sh
-$ clojure -Sdeps '{:deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git" :sha "dccf2134bcf03726a9465d2b9997c42e5cd91bff"}}}' -m mach.pack.alpha.inject 'c70740ffc10805f34836da2160fa1899601fac02'
+clojure -Sdeps '{:deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git" :sha "dccf2134bcf03726a9465d2b9997c42e5cd91bff"}}}' -m mach.pack.alpha.inject 'c70740ffc10805f34836da2160fa1899601fac02'
     #+end_src
     
 *** Build your JAR
     [[https://juxt.pro/blog/pack-maven#_build_your_jar][Link to original blog post]]
 
     Use =pack='s skinny jar mode to create a jar that's suitable for upload to clojars.
-    #+begin_src 
+    #+begin_src sh
 clojure -A:pack mach.pack.alpha.skinny --no-libs --project-path clansi-1.3.1.jar
     #+end_src
 
