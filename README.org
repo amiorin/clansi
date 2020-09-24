@@ -6,8 +6,6 @@
 
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
-* CLANSI
-
 ** Installation
 
    Add this to your leiningen `project.clj` depedencies
