@@ -3,10 +3,18 @@ CLANSI
 
 ## Installation
 
-add this to your `project.clj` depedencies
+add this to your leiningen `project.clj` depedencies
 ```clojure
-[clansi "1.0.0"]
+[com.bunimo/clansi "1.3.1-LPG-SNAPSHOT"]
 ```
+
+or to your deps.edn
+```clojure
+:deps {
+    com.bunimo/clansi {:mvn/version "1.3.1-LPG-SNAPSHOT"}
+}
+```
+
 
 ## Usage
 

@@ -1,0 +1,27 @@
+{:paths
+ ["src" "resources" "classes"]
+
+ :deps {
+        org.clojure/clojure {:mvn/version "1.10.1"}
+        }
+
+ :aliases {
+           :test {:extra-paths ["test"]
+                  :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}}}
+
+           :runner {:extra-deps {com.cognitect/test-runner
+                                 {:git/url "https://github.com/cognitect-labs/test-runner"
+                                  :sha "f7ef16dc3b8332b0d77bc0274578ad5270fbfedd"}}
+                    :main-opts ["-m" "cognitect.test-runner"
+                                "-d" "test"]}
+
+           :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
+                     :main-opts ["-m" "hf.depstar.uberjar" "outdated-aws-deps.jar"
+                                 "-C" "-m" "com.bunimo.clansi"]}
+           
+           :pack {:extra-deps {pack/pack.alpha {:git/url "https://github.com/juxt/pack.alpha.git"
+                                                :sha "c70740ffc10805f34836da2160fa1899601fac02"}}
+                  :main-opts ["-m"]}
+           :deploy {:extra-deps {deps-deploy {:mvn/version "RELEASE"}}
+                    :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "clansi-1.0.3.jar"]}
+           }}

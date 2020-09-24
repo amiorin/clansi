@@ -1,8 +1,11 @@
-(ns clansi.core
+(ns com.bunimo.clansi
   (:require [clojure.string :as str]
-            [clojure.pprint :as pp])
-  (:gen-class))
+            [clojure.pprint :as pp]))
 
+(gen-class
+ :name com.bunimo.Clansi
+ 
+ )
 
 (def ATTRIBUTES (atom {:error [4 91 40]
                        :clear 0
@@ -29,14 +32,14 @@
                        :white 37 :on-white 47 :bg-white 47
                        :default 39 :on-default 49 :bg-default 49
 
-                       :bright-black 90 :lt-black 90 :on-bright-black 100 :bg-bright-black 100
-                       :bright-red 91 :lt-red 91 :on-bright-red 101 :bg-bright-red 101
-                       :bright-green 92 :lt-green 92 :on-bright-green 102 :bg-bright-green 102
-                       :bright-yellow 93 :lt-yellow 93 :on-bright-yellow 103 :bg-bright-yellow 103
-                       :bright-blue 94 :lt-blue 94 :on-bright-blue 104 :bg-bright-blue 104
-                       :bright-magenta 95 :lt-magenta 95 :on-bright-magenta 105 :bg-bright-magenta 105
-                       :bright-cyan 96 :lt-cyan 96 :on-bright-cyan 106 :bg-bright-cyan 106
-                       :bright-white 97 :lt-white 97 :on-bright-white 107 :bg-bright-white 107}))
+                       :bright-black 90 :lt-black 90 :on-bright-black 100 :on-lt-black 100 :bg-bright-black 100 :bg-lt-black 100 
+                       :bright-red 91 :lt-red 91 :on-bright-red 101 :on-lt-red 101 :bg-bright-red 101 :bg-lt-red 101
+                       :bright-green 92 :lt-green 92 :on-bright-green 102 :on-lt-green 102 :bg-bright-green 102 :bg-lt-green 102
+                       :bright-yellow 93 :lt-yellow 93 :on-bright-yellow 103 :on-lt-yellow 103 :bg-bright-yellow 103 :bg-lt-yellow 103
+                       :bright-blue 94 :lt-blue 94 :on-bright-blue 104 :on-lt-blue 104 :bg-bright-blue 104 :bg-lt-blue 104
+                       :bright-magenta 95 :lt-magenta 95 :on-bright-magenta 105 :on-lt-magenta 105 :bg-bright-magenta 105 :bg-lt-magenta 105
+                       :bright-cyan 96 :lt-cyan 96 :on-bright-cyan 106 :on-lt-cyan 106 :bg-bright-cyan 106 :bg-lt-cyan 106
+                       :bright-white 97 :lt-white 97 :on-bright-white 107 :on-lt-white 107 :bg-bright-white 107 :bg-lt-white 107}))
 
 
 ;; dumby, none of what follows modifies ATTRIBUTES  (Clojure collections are immutable, remember)
@@ -216,31 +219,7 @@
                            360 [255 0 (- (* (- 360.0 angle) 4.25) 0.01)]))
 
 
-(defn- print-rainbow []
-  (doseq [step (range 0 30)]
-    (let [angle (* step 12.0)
-          [red green blue] (angle->rgb angle)
-          r (Math/round (double (/ red 51)))
-          g (Math/round (double (/ green 51)))
-          b (Math/round (double (/ blue 51)))
-          color (format "rgb%d%d%d" r g b)
-          tag (format "#%d%d%d" r g b)]
-      (print (style tag (keyword color))))))
-
-(defn -main []
-  ;; modes
-  (println (style "modes:" :underline))
-  (println (str "normal:  " (style ":normal :reset :clear"  :reset)))
-  (println (str "bold:    " (style ":bold" :bold)))
-  (println (str "faint:   " (style ":dim :dark :faint" :dim)))
-  (println (str "italic:  " (style ":italic" :italic)))
-  (println (str "under_:  " (style ":underline :underscore" :underscore)))
-  (println (str "blink:   " (style ":blink" :blink)))
-  (println (str "reverse: " (style ":reverse" :reverse)))
-  (println (str "conceal: " (style ":concealed" :concealed)))
-  (println (str "error    " (style ":trigger-an-error" :trigger-an-error)))
-  (println)
-
+(defn- print-sample []
   (let [base-colors ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"]]
     (println (style "foregrounds:" :underline))
     (doseq [color base-colors]
@@ -310,10 +289,10 @@
     (doseq [n (range 0 16)]
       (let [tag (format "ansi-%d" n)]
         (println (style (str "** " tag " **") (keyword (format "ansi%d" n))))))
-    (println))
+    (println)))
 
-    ;; standard color view
 
+(defn print-standard-color-box []
   (println (style "                 40m     41m     42m     43m     44m     45m     46m     47m   " :reset))
   (let [fg [:normal :bold :black [:bold :black] :red [:bold :red] :green [:bold :green] :yellow [:bold :yellow]
                 :blue [:bold :blue] :magenta [:bold :magenta] :cyan [:bold :cyan] :white [:bold :white]]
@@ -325,9 +304,39 @@
         (let [tag "  gYw  "]
           (print (style tag (row :fg) bg))
           (print (style " " :normal))))
-      (println)))
+      (println))))
 
+
+(defn- print-rainbow []
+  (doseq [step (range 0 30)]
+    (let [angle (* step 12.0)
+          [red green blue] (angle->rgb angle)
+          r (Math/round (double (/ red 51)))
+          g (Math/round (double (/ green 51)))
+          b (Math/round (double (/ blue 51)))
+          color (format "rgb%d%d%d" r g b)
+          tag (format "#%d%d%d" r g b)]
+      (print (style tag (keyword color))))))
+
+(defn -main []
+  ;; modes
+  (println (style "modes:" :underline))
+  (println (str "normal:  " (style ":normal :reset :clear"  :reset)))
+  (println (str "bold:    " (style ":bold" :bold)))
+  (println (str "faint:   " (style ":dim :dark :faint" :dim)))
+  (println (str "italic:  " (style ":italic" :italic)))
+  (println (str "under_:  " (style ":underline :underscore" :underscore)))
+  (println (str "blink:   " (style ":blink" :blink)))
+  (println (str "reverse: " (style ":reverse" :reverse)))
+  (println (str "conceal: " (style ":concealed" :concealed)))
+  (println (str "error    " (style ":trigger-an-error" :trigger-an-error)))
   (println)
+
+  (print-sample)
+
+  (println (style "Theme Color View:" :underline))
+  (print-standard-color-box)
+
   (println (style "rainbow:" :underline))
   (print-rainbow)
   (println))

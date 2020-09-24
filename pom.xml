@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>clansi</name>
+
+  <groupId>com.bunimo</groupId>
+  <artifactId>clansi</artifactId>
+  <version>1.3.1-LPG-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+  <description>ANSI style and color codes for Clojure.</description>
+
+  <scm>
+    <url>https://github.com/lgouger/clansi</url>
+    <connection>scm:git:git://github.com/lgouger/clansi.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/lgouger/clansi.git</developerConnection>
+    <tag>1894515179559aa4340d7d54ab11da9fc2f325fa</tag>
+  </scm>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>resources</directory>
+      </testResource>
+    </testResources>
+    <directory>target</directory>
+    <outputDirectory>target/classes</outputDirectory>
+    <plugins/>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.10.1</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org/</url>
+    </repository>
+    <repository>
+      <id>cloudifactory</id>
+      <url>https://artifactory.coxautoinc.com/artifactory/ddc-maven</url>
+    </repository>
+  </repositories>
+</project>
