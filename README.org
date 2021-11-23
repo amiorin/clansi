@@ -95,9 +95,9 @@ clojure -A:pack mach.pack.alpha.skinny --no-libs --project-path clansi-1.3.1.jar
      #+end_src
     
     
-**** Invoke the :deploy alias
+**** Invoke the :deploy alias (/NOTE: first line to exclude token from history/)
      #+begin_src sh
-export HISTFILE=/dev/null(1)
+export HISTFILE=/dev/null
 CLOJARS_USERNAME=lgouger CLOJARS_PASSWORD=${CLOJARS_DEPLOYMENT_TOKEN} clojure -A:deploy
      #+end_src
 

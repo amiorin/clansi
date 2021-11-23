@@ -1,6 +1,7 @@
 *~
 
 ### Clojure template
+.lsp/
 *.jar
 *.class
 /lib/
